@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Chamado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChamadoController extends Controller
 {
@@ -14,7 +16,8 @@ class ChamadoController extends Controller
      */
     public function index()
     {
-        //
+        $chamados = Chamado::all();
+        return view('chamados.index', compact('chamados'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ChamadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('chamados.create');
     }
 
     /**
@@ -35,7 +38,20 @@ class ChamadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userId = Auth::id();
+
+        DB::beginTransaction();
+
+            Chamado::create([
+                'user_id' => $userId,
+                'titulo' => $request->tituloChamado,
+                'descricao' => $request->descricaoChamado,
+                'status' => 'aberto'
+            ]);
+
+        DB::commit();
+
+        return redirect('/');
     }
 
     /**
@@ -44,9 +60,13 @@ class ChamadoController extends Controller
      * @param  \App\Models\Chamado  $chamado
      * @return \Illuminate\Http\Response
      */
-    public function show(Chamado $chamado)
+    public function show($id)
     {
-        //
+        $chamado = Chamado::find($id);
+
+        $this->authorize('ver-chamado', $chamado);  //1 ° Forma, com mensagem e erro padrão do Laravel
+
+        return view('chamados.show', compact('chamado'));
     }
 
     /**

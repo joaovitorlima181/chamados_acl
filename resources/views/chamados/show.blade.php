@@ -1,11 +1,9 @@
 @extends('layout')
 
 @section('cabecalho')
-    Teste
+    {{$chamado->titulo}}
 @endsection
 
 @section('conteudo')
-
-    Teste
-    
+    {{$chamado->descricao}}
 @endsection

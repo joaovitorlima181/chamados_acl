@@ -15,6 +15,10 @@ class CreateChamadosTable extends Migration
     {
         Schema::create('chamados', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('titulo');
+            $table->string('descricao');
+            $table->enum('status', ['aberto', 'andamento', 'fechado']);
             $table->timestamps();
         });
     }

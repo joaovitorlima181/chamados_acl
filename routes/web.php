@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -22,17 +22,22 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'login'], function () {
-    Route::get('', [LoginController::class, 'index'])->name('login');
-    Route::post('', [LoginController::class, 'login']);
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/', [LoginController::class, 'login']);
 });
 
 Route::group(['prefix' => 'registrar'], function () {
-    Route::get('', [RegisterController::class, 'create']);
-    Route::post('', [RegisterController::class, 'store']);
+    Route::get('/', [RegisterController::class, 'create']);
+    Route::post('/', [RegisterController::class, 'store']);
 });
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
-    Route::get('', [DashboardController::class, 'index']);
+    Route::get('/', [ChamadoController::class, 'index']);
+
+    Route::get('/novo', [ChamadoController::class, 'create']);
+    Route::post('/novo', [ChamadoController::class, 'store']);
+
+    Route::get('/mostrar/{id}', [ChamadoController::class, 'show']);
 });
 
 Route::get('/logout', function () {
