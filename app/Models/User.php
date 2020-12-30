@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Chamado::class);
     }
+
+    public function isSuperAdmin()
+    {
+        return $this->id == 1;
+    }
 }

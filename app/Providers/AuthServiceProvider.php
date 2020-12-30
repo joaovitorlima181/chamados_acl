@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Chamado;
+use App\Policies\ChamadoPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Chamado::class => ChamadoPolicy::class,
     ];
 
     /**
@@ -25,9 +27,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::define('ver-chamado', function($user, Chamado $chamado){
-            return $user->id == $chamado->user_id;
-        });
     }
 }

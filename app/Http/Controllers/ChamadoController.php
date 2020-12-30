@@ -64,7 +64,7 @@ class ChamadoController extends Controller
     {
         $chamado = Chamado::find($id);
 
-        $this->authorize('ver-chamado', $chamado);  //1 ° Forma, com mensagem e erro padrão do Laravel
+        $this->authorize('ver-chamado', $chamado);
 
         return view('chamados.show', compact('chamado'));
     }
