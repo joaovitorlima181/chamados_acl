@@ -16,10 +16,10 @@
         @auth
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
+                <a class="nav-link" href={{route('papeis.index')}}>Papeis</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/suggestion">Sugestões</a>
+                <a class="nav-link" href="{{route('users.index')}}">Usuários</a>
             </li>
         </ul>
         <a href="/logout" class="text-danger">Sair</a>

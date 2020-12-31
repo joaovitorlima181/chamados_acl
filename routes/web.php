@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PapelController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,13 +34,24 @@ Route::group(['prefix' => 'registrar'], function () {
     Route::post('/', [RegisterController::class, 'store']);
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
-    Route::get('/', [ChamadoController::class, 'index']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [ChamadoController::class, 'index']);
 
-    Route::get('/novo', [ChamadoController::class, 'create']);
-    Route::post('/novo', [ChamadoController::class, 'store']);
+    Route::group(['prefix' => 'chamado'], function () {
+        Route::get('/novo', [ChamadoController::class, 'create']);
+        Route::post('/novo', [ChamadoController::class, 'store']);
+    
+        Route::get('/mostrar/{id}', [ChamadoController::class, 'show']);
+    });
 
-    Route::get('/mostrar/{id}', [ChamadoController::class, 'show']);
+    Route::resource('users', UserController::class);
+
+    Route::get('users/papel/{id}', [UserController::class, 'papel'])->name('users.papel');
+    Route::post('users/papel/{papel}', [UserController::class, 'papelStore'])->name('users.papel.store');
+    Route::delete('users/papel/{user}/{papel}', [UserController::class, 'papelDestroy'])->name('users.papel.destroy');
+
+    Route::resource('papeis', PapelController::class);
+
 });
 
 Route::get('/logout', function () {

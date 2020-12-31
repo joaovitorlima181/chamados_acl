@@ -18,22 +18,6 @@ class ChamadoPolicy
         }
     }
 
-    // public function verChamado(User $user, Chamado $chamado)
-    // {
-    //     return $user->id == $chamado->user_id;
-    // }
-
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
     /**
      * Determine whether the user can view the model.
      *
