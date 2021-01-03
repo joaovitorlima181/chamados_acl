@@ -26,16 +26,13 @@
                     <td>
                         <form action="{{route('papeis.destroy',$registro->id)}}" method="post">
 
-                            @can('papel-edit')
+                            
                             <a title="Editar" class="btn orange" href="{{ route('papeis.edit',$registro->id) }}"><i class="material-icons">mode_edit</i></a>
                             <a title="Permissões" class="btn blue" href="{{route('papeis.permissao',$registro->id)}}"><i class="material-icons">lock_outline</i></a>
-                            @endcan
-                            
-                            @can('papel-delete')
+                         
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
                                 <button title="Deletar" class="btn red"><i class="material-icons">delete</i></button>
-                            @endcan
 
                         </form>
                     </td>

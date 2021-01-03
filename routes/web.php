@@ -51,6 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('users/papel/{user}/{papel}', [UserController::class, 'papelDestroy'])->name('users.papel.destroy');
 
     Route::resource('papeis', PapelController::class);
+    
+    Route::get('papeis/permissao/{id}', [PapelController::class, 'permissao'])->name('papeis.permissao');
+    Route::post('papeis/permissao/{permissao}', [PapelController::class, 'permissaoStore'])->name('papeis.permissao.store');
+    Route::delete('papeis/permissao/{papel}/{permissao}', [PapelController::class, 'permissaoDestroy'])->name('papeis.permissao.destroy');
 
 });
 

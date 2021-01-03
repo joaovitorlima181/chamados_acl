@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Papel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 use function GuzzleHttp\Promise\all;
 
@@ -17,6 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('user-edit')){
+            abort(403,"Não autorizado!");
+        }
+
         $users = User::all();
 
         return view('usuarios.index', compact('users'));
@@ -30,7 +35,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if(Gate::denies('user-create')){
+            abort(403,"Não autorizado!");
+        }
     }
 
     /**
@@ -41,7 +48,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Gate::denies('user-create')){
+            abort(403,"Não autorizado!");
+        }
     }
 
     /**
@@ -63,7 +72,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Gate::denies('user-edit')){
+            abort(403,"Não autorizado!");
+        }
     }
 
     /**
@@ -75,7 +86,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Gate::denies('user-edit')){
+            abort(403,"Não autorizado!");
+        }
     }
 
     /**
@@ -86,11 +99,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Gate::denies('user-delete')){
+            abort(403,"Não autorizado!");
+        }
     }
 
     public function papel($id)
     {
+        if(Gate::denies('papel-delete')){
+            abort(403,"Não autorizado!");
+          }
+
         $user = User::find($id);
         $papeis = Papel::all();
 

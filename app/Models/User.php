@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function isSuperAdmin()
     {
-        return $this->id == 1;
+        return $this->existePapel('Admin');
     }
 
     public function addPapel($papel)
@@ -85,5 +85,11 @@ class User extends Authenticatable
         }
 
         return $this->papeis()->detach($papel);
+    }
+
+    public function temUmPapelDestes($papeis)
+    {
+         $userPapeis = $this->papeis;
+         return $papeis->intersect($userPapeis);
     }
 }
